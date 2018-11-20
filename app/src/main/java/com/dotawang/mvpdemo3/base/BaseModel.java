@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.dotawang.mvpdemo3.constant.APIService;
+import com.dotawang.mvpdemo3.http.BaseRetrofit;
 
 import java.util.HashMap;
 import java.util.Map;
