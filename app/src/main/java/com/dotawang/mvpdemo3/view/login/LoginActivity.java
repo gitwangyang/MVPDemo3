@@ -1,6 +1,7 @@
 package com.dotawang.mvpdemo3.view.login;
 
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.dotawang.mvpdemo3.R;
 import com.dotawang.mvpdemo3.base.BaseMvpActivity;
@@ -40,5 +41,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @Override
     public void setContent() {
         Log.i(getClass().getSimpleName(), "Login测试成功");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        moveTaskToBack(true);
+        return super.onKeyDown(keyCode, event);
     }
 }
