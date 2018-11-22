@@ -1,0 +1,71 @@
+<html>
+<head>
+    <!--参考网址：https://www.jianshu.com/p/cb8988c50fb6-->
+    <!--从assert中加载的中文网页会出现乱码，解决办法就是给html指定编码-->
+    <meta http-equlv="Content-Type" content="text/html;charset=UTF-8">
+    <title>
+    </title>
+</head>
+<body>
+这是html页面 <br/>
+<button onclick="s()">点击调用本地方法</button>
+<a href="file:///android_asset/index.html">点击跳转到原生页面</a>
+
+<!-- 点击事件中添加下面的方法调用相应的p标签中的对应的id-->
+<p id="p1">
+    1、直接访问H5里不带返回值的方法，show()为H5里的方法
+                    <!--mWebView.loadUrl("JavaScript:show()");-->
+</p>
+
+<p id="p2">
+    2、传固定字符串可以直接用单引号括起来
+    访问H5里带参数的方法，alertMessage(message)为H5里的方法
+                    <!--mWebView.loadUrl("javascript:alertMessage('哈哈')");-->
+</p>
+
+<p id="p3">
+    3、当出入变量名时，需要用转义符隔开
+                    <!--String content = "9880";-->
+                    <!--mWebView.loadUrl("javascript:alertMessage(\"" + content + "\")");-->
+                    <!--//Android调用有返回值js方法，安卓4.4以上才能用这个方法-->
+                    <!--mWebView.evaluateJavascript("sum(1,2)", new ValueCallback<String>() {-->
+                        <!--@Override-->
+                        <!--public void onReceiveValue(String value) {-->
+                            <!--Log.d("MainActivity", "js返回的结果为=" + value);-->
+                            <!--Toast.makeText(MainActivity.this, "js返回的结果为=" + value, Toast.LENGTH_LONG).show();-->
+                        <!--}-->
+                    <!--});-->
+</p>
+
+<script type="text/javascript">
+
+            //有参有返回值的方法
+            function sum(a,b) {
+                <!--gygguuuiu-->
+                return a+b;
+            }
+
+            //有参无返回值的方法
+            function alertMessage(message) {
+                alert(message);
+            }
+
+            //无参无返回值的方法
+            function show(){
+                //显示hello world
+                document.getElementById("p").innerHTML="hello world";
+            }
+
+function s() {
+    //调用原生的方法，Android为约定的别名；back()为原生的方法
+    var result=window.Android.back();
+    //将返回结果显示在id为p的控件上
+    document.getElementById("p1").innerHTML=result +"1";
+    document.getElementById("p2").innerHTML=result +"2";
+    document.getElementById("p3").innerHTML=result +"3";
+}
+
+
+</script>
+</body>
+</html>
