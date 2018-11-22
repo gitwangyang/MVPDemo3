@@ -106,7 +106,9 @@ public final class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] chars2Bytes(final char[] chars) {
-        if (chars == null || chars.length <= 0) return null;
+        if (chars == null || chars.length <= 0) {
+            return null;
+        }
         int len = chars.length;
         byte[] bytes = new byte[len];
         for (int i = 0; i < len; i++) {

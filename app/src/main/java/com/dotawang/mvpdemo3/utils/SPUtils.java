@@ -34,7 +34,9 @@ public final class SPUtils {
      * @return {@link SPUtils}
      */
     public static SPUtils getInstance(String spName) {
-        if (isSpace(spName)) spName = "spUtils";
+        if (isSpace(spName)) {
+            spName = "spUtils";
+        }
         SPUtils sp = sSPMap.get(spName);
         if (sp == null) {
             sp = new SPUtils(spName);
@@ -269,7 +271,9 @@ public final class SPUtils {
     }
 
     private static boolean isSpace(final String s) {
-        if (s == null) return true;
+        if (s == null) {
+            return true;
+        }
         for (int i = 0, len = s.length(); i < len; ++i) {
             if (!Character.isWhitespace(s.charAt(i))) {
                 return false;
