@@ -76,7 +76,7 @@ public class CustomWebViewClient extends WebViewClient {
         }
         if (!TextUtils.isEmpty(value)){
             //状态栏颜色改变
-            Tool.smartTintManager((Activity) webView.getContext(), webView.getContext().getResources().getColor(R.color.red));
+            Tool.statusTintManager((Activity) webView.getContext(), webView.getContext().getResources().getColor(R.color.red));
         }
         super.onPageStarted(view, url, favicon);
     }

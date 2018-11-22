@@ -5,7 +5,7 @@ package com.dotawang.mvpdemo3.constant;
  * @Date 2018/11/22
  * @Description
  */
-public class Constants {
+public class ConstantValues {
     public static String app_name = "mvp";
     public static String tel_phone = "18552433426";
 }

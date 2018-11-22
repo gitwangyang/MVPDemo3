@@ -1,6 +1,7 @@
 package com.dotawang.mvpdemo3.custom.web;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -76,6 +77,7 @@ public class CustomWebView extends WebView {
     private void addJavaInterfaces() {
         jsInterfaceMap.put("web", new BackJsWithNative(this));
         jsInterfaceMap.put("tel", new GetTelJsWithNative());
+        jsInterfaceMap.put("ServiceJsObj", new HtmlJsWithNative((Activity) getContext()));
 //        jsInterfaceMap.put("toBindAccount", new ToBindAccountActivity(getContext()));
 
         for (String key: jsInterfaceMap.keySet()) {

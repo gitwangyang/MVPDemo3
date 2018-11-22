@@ -3,7 +3,9 @@ package com.dotawang.mvpdemo3.custom.web;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
-import com.dotawang.mvpdemo3.constant.Constants;
+import com.blankj.utilcode.util.StringUtils;
+import com.dotawang.mvpdemo3.constant.ConstantValues;
+import com.dotawang.mvpdemo3.utils.EncryptUtil;
 import com.dotawang.mvpdemo3.utils.Tool;
 
 /**
@@ -16,7 +18,7 @@ public class GetTelJsWithNative extends BaseJsInterface {
     @JavascriptInterface
     public String getTelphone() {
         //TODO  修改为sp保存的tel
-        String telNum = Constants.tel_phone;
+        String telNum = ConstantValues.tel_phone;
         if (TextUtils.isEmpty(telNum)) {
             return "";
         } else {
@@ -28,9 +30,9 @@ public class GetTelJsWithNative extends BaseJsInterface {
     public String getSign() {
         String sign = "";
         //TODO  修改为sp保存的tel
-        String phone = Constants.tel_phone;
-        sign = Tool.getMd5Value(phone + Constants.app_name + Tool.getcurrentDate());
-        if (Tool.isEmpty(sign)) {
+        String phone = ConstantValues.tel_phone;
+        sign = EncryptUtil.getMd5Value(phone + ConstantValues.app_name + Tool.getcurrentDate());
+        if (StringUtils.isTrimEmpty(sign)) {
             return "";
         } else {
             return "sign=" + sign;
