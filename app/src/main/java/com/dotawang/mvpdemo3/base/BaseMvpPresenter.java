@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
  * @Date 2018/11/20
  * @Description Presenter生命周期包装、View的绑定和解除，P层实现的基类
  */
-public class BaseMvpPresenter<V extends MvpView> implements MvpPresenter<V> {
+public class BaseMvpPresenter<V extends MvpView>{
 
     private WeakReference<V> viewRef;
 
@@ -21,54 +21,14 @@ public class BaseMvpPresenter<V extends MvpView> implements MvpPresenter<V> {
         return null!= viewRef && null!= viewRef.get();
     }
 
-    private void attach(V view, Bundle savedInstanceState) {
+    protected void attach(V view) {
         viewRef = new WeakReference<V>(view);
     }
 
-    @Override
-    public void onMvpAttachView(V view, Bundle savedInstanceState) {
-        attach(view,savedInstanceState);
-    }
-
-    @Override
-    public void onMvpStart() {
-
-    }
-
-    @Override
-    public void onMvpResume() {
-
-    }
-
-    @Override
-    public void onMvpPause() {
-
-    }
-
-    @Override
-    public void onMvpStop() {
-
-    }
-
-    @Override
-    public void onMvpSaveInstanceState(Bundle savedInstanceState) {
-
-    }
-
-    private void detach(boolean retainInstance) {
+    protected void detach() {
         if (null!= viewRef) {
             viewRef.clear();
             viewRef = null;
         }
-    }
-
-    @Override
-    public void onMvpDetachView(boolean retainInstance) {
-        detach(retainInstance);
-    }
-
-    @Override
-    public void onMvpDestroy() {
-
     }
 }

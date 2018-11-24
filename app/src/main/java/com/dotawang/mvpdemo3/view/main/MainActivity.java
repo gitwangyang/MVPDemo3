@@ -5,19 +5,17 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.dotawang.mvpdemo3.R;
 import com.dotawang.mvpdemo3.base.BaseMvpActivity;
+import com.dotawang.mvpdemo3.base.BaseMvpPresenter;
+import com.dotawang.mvpdemo3.model.login.User;
 import com.dotawang.mvpdemo3.presenter.main.MainPresenter;
-import com.dotawang.mvpdemo3.presenter.main.MainPresenterImpl;
-import com.dotawang.mvpdemo3.view.main.MainView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,7 +34,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 
     @Override
     protected MainPresenter createPresenter() {
-        return new MainPresenterImpl();
+        return new MainPresenter(this);
     }
 
     @Override
@@ -61,7 +59,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     @Override
     protected void onPrepare() {
         if (null!= presenter){
-            presenter.requestContent();
         }
     }
 
@@ -98,6 +95,11 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onRequestSuccessData(User data) {
+
     }
 
     /**

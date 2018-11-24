@@ -1,8 +1,5 @@
 package com.dotawang.mvpdemo3.model.login;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
 import com.dotawang.mvpdemo3.base.BaseModel;
 import com.dotawang.mvpdemo3.http.HttpFunction;
 
@@ -16,7 +13,6 @@ import io.reactivex.Observer;
  */
 public class LoginModel extends BaseModel{
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static LoginModel getInstance(){
         return getPresent(LoginModel.class);
     }

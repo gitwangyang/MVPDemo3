@@ -8,5 +8,8 @@ import com.dotawang.mvpdemo3.base.MvpView;
  * @Description
  */
 public interface LoginView extends MvpView {
-    void setContent();
+    String getUserName();
+
+    String getPassword();
+
 }
