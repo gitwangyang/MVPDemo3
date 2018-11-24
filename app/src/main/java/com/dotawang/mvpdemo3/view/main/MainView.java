@@ -7,6 +7,6 @@ import com.dotawang.mvpdemo3.base.MvpView;
  * @Date 2018/11/20
  * @Description
  */
-public interface MainView extends MvpView {
+public interface MainView<T> extends MvpView {
     void setContent();
 }
