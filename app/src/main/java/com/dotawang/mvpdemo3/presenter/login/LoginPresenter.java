@@ -24,19 +24,20 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> {
     }
 
     public void getUserData(BaseImpl baseImpl){
-        LoginModel.getInstance().execute(getView().getUserName(), getView().getPassword(), new CygBaseObserver<User>() {
-            @Override
-            protected void onBaseNext(User data) {
-                UserInfo userInfo = new UserInfo();
-                userInfo.setId(data.getId());
-                userInfo.setToken(data.getToken());
-                userInfo.setUsername(getView().getUserName());
-
-                UserDao.getInstance().deleteAll(UserInfo.class);
-                UserDao.getInstance().insertObject(userInfo);
-                getView().onRequestSuccessData(data);
-            }
-        });
+//        LoginModel.getInstance().execute(getView().getUserName(), getView().getPassword(), new CygBaseObserver<User>() {
+//            @Override
+//            protected void onBaseNext(User data) {
+//                UserInfo userInfo = new UserInfo();
+//                userInfo.setId(data.getId());
+//                userInfo.setToken(data.getToken());
+//                userInfo.setUsername(getView().getUserName());
+//
+//                UserDao.getInstance().deleteAll(UserInfo.class);
+//                UserDao.getInstance().insertObject(userInfo);
+//                getView().onRequestSuccessData(data);
+//            }
+//        });
+        getView().onRequestFailureData();
     }
 
     public void toMainActivity(Context context) {

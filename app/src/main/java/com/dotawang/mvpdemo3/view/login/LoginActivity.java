@@ -10,6 +10,7 @@ import com.dotawang.mvpdemo3.base.BaseMvpActivity;
 import com.dotawang.mvpdemo3.base.BaseMvpPresenter;
 import com.dotawang.mvpdemo3.model.login.User;
 import com.dotawang.mvpdemo3.presenter.login.LoginPresenter;
+import com.dotawang.mvpdemo3.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,6 +61,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     }
 
     @Override
+    public void onRequestFailureData() {
+        ToastUtil.showToast(this,"MainActivity中请求失败！");
+        presenter.toMainActivity(this);
+    }
+
+    @Override
     public String getUserName() {
         return etUserName.getText().toString().trim();
     }
@@ -72,11 +79,13 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
         if (TextUtils.isEmpty(getUserName())) {
-            etPassword.setError("用户名不能为空");
+//            etPassword.setError("用户名不能为空");
+            ToastUtil.showToast(this,"用户名不能为空");
             return;
         }
         if (TextUtils.isEmpty(getPassword())) {
-            etPassword.setError("密码不能为空");
+//            etPassword.setError("密码不能为空");
+            ToastUtil.showToast(this,"密码不能为空");
             return;
         }
         presenter.getUserData(this);

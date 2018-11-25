@@ -16,6 +16,7 @@ import com.dotawang.mvpdemo3.base.BaseMvpActivity;
 import com.dotawang.mvpdemo3.base.BaseMvpPresenter;
 import com.dotawang.mvpdemo3.model.login.User;
 import com.dotawang.mvpdemo3.presenter.main.MainPresenter;
+import com.dotawang.mvpdemo3.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -100,6 +101,11 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     @Override
     public void onRequestSuccessData(User data) {
 
+    }
+
+    @Override
+    public void onRequestFailureData() {
+        ToastUtil.showToast(this,"MainActivity中请求失败！");
     }
 
     /**

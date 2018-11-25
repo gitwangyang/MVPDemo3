@@ -9,5 +9,14 @@ import com.dotawang.mvpdemo3.model.login.User;
  */
 public interface MvpView {
 
+    /**
+     * 请求成功的操作
+     * @param data
+     */
     void onRequestSuccessData(User data);
+
+    /**
+     * 请求失败的操作
+     */
+    void onRequestFailureData();
 }
