@@ -2,7 +2,9 @@ package com.dotawang.mvpdemo3.constant;
 
 import com.dotawang.mvpdemo3.http.BaseResponse;
 import com.dotawang.mvpdemo3.model.login.User;
+import com.dotawang.mvpdemo3.model.main.MainInfo;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -21,7 +23,7 @@ public interface APIService {
     Observable<BaseResponse<User>> getUserInfo(@FieldMap Map<String, String> params);
 
 
-//    @FormUrlEncoded
-//    @POST("MainServlet")
-//    Observable<BaseResponse<List<MainInfo>>> getArticle(@FieldMap Map<String, String> params);
+    @FormUrlEncoded
+    @POST("MainServlet")
+    Observable<BaseResponse<List<MainInfo>>> getArticle(@FieldMap Map<String, String> params);
 }

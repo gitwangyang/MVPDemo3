@@ -7,9 +7,15 @@ import com.dotawang.mvpdemo3.base.MvpView;
  * @Date 2018/11/20
  * @Description
  */
-public interface LoginView extends MvpView {
+public interface LoginView<T> extends MvpView<T> {
+
     String getUserName();
 
     String getPassword();
+
+    /**
+     * 登录请求失败
+     */
+    void onRequestFailureData();
 
 }

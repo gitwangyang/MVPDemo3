@@ -18,8 +18,8 @@ import com.dotawang.mvpdemo3.view.main.MainActivity;
  * @Date 2018/11/20
  * @Description
  */
-public class LoginPresenter extends BaseMvpPresenter<LoginView> {
-    public LoginPresenter(LoginView loginView) {
+public class LoginPresenter extends BaseMvpPresenter<LoginView<User>> {
+    public LoginPresenter(LoginView<User> loginView) {
         attach(loginView);
     }
 

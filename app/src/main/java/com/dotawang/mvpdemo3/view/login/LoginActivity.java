@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * @Date 2018/11/20
  * @Description
  */
-public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginView {
+public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginView<User> {
     @BindView(R.id.et_user_name)
     TextInputEditText etUserName;
     @BindView(R.id.et_password)

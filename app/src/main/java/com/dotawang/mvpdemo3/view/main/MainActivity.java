@@ -2,7 +2,9 @@ package com.dotawang.mvpdemo3.view.main;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -15,8 +17,18 @@ import com.dotawang.mvpdemo3.R;
 import com.dotawang.mvpdemo3.base.BaseMvpActivity;
 import com.dotawang.mvpdemo3.base.BaseMvpPresenter;
 import com.dotawang.mvpdemo3.model.login.User;
+import com.dotawang.mvpdemo3.model.main.MainInfo;
 import com.dotawang.mvpdemo3.presenter.main.MainPresenter;
 import com.dotawang.mvpdemo3.utils.ToastUtil;
+import com.dotawang.mvpdemo3.utils.widget.recyclerview.PtrRecyclerViewUIComponent;
+import com.dotawang.mvpdemo3.utils.widget.recyclerview.adapter.BaseRecyclerAdapter;
+import com.dotawang.mvpdemo3.utils.widget.recyclerview.divider.RecyclerViewDivider;
+import com.dotawang.mvpdemo3.utils.widget.refersh.OnPullToRefreshListener;
+import com.dotawang.mvpdemo3.utils.widget.titlebar.TitleBarUIComponent;
+import com.dotawang.mvpdemo3.view.main.adapter.MainAdapter;
+import com.dotawang.mvpdemo3.view.main.adapter.MainViewHolder;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,12 +38,18 @@ import butterknife.OnClick;
  * @Date 2018/11/20
  * @Description
  */
-public class MainActivity extends BaseMvpActivity<MainPresenter> implements MainView {
+public class MainActivity extends BaseMvpActivity<MainPresenter> implements MainView<List<MainInfo>>,BaseRecyclerAdapter.OnItemClickListener<MainViewHolder>,OnPullToRefreshListener {
 
     @BindView(R.id.webview)
     WebView mWebView;
     @BindView(R.id.btn)
     Button btn;
+    @BindView(R.id.titlebar)
+    TitleBarUIComponent titleBarUIComponent;
+    @BindView(R.id.ptr_framelayout)
+    PtrRecyclerViewUIComponent ptrRecyclerViewUIComponent;
+
+    private MainAdapter mAdapter;
 
     @Override
     protected MainPresenter createPresenter() {
@@ -45,6 +63,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 
     @Override
     protected void initView() {
+        //------------------------webview-------------------------------------
         mWebView.loadUrl("file:////android_asset/index.html");
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);//打开js支持
@@ -55,6 +74,26 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
 
+        //--------------------------titlebar---------------------------------
+        titleBarUIComponent.initTitle(getResources().getString(R.string.home));
+        titleBarUIComponent.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+        mAdapter = new MainAdapter(this,this);
+        ptrRecyclerViewUIComponent.setLayoutManager(new LinearLayoutManager(this));
+        ptrRecyclerViewUIComponent.setRecyclerViewDivider(new RecyclerViewDivider(this));
+        ptrRecyclerViewUIComponent.setAdapter(mAdapter);
+
+        ptrRecyclerViewUIComponent.delayRefresh(100);
+        ptrRecyclerViewUIComponent.setOnPullToRefreshListener(this);
+
+        initFragment();
+    }
+
+    /**
+     * Fragment 底部导航栏的创建
+     */
+    private void initFragment() {
+        
     }
 
     @Override
@@ -63,10 +102,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         }
     }
 
-    @Override
-    public void setContent() {
-        Log.i(getClass().getSimpleName(), "Main测试成功");
-    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @OnClick({R.id.btn})
@@ -99,13 +134,31 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     }
 
     @Override
-    public void onRequestSuccessData(User data) {
-
+    public void onRequestSuccessData(List<MainInfo> data) {
+        mAdapter.setDataList(data);
+        ptrRecyclerViewUIComponent.refreshComplete();
+        ToastUtil.showToast(this,"MainActivity中请求成功！");
     }
 
     @Override
-    public void onRequestFailureData() {
+    public void getArticleDataFailure(Throwable t) {
+        ptrRecyclerViewUIComponent.refreshComplete();
         ToastUtil.showToast(this,"MainActivity中请求失败！");
+    }
+    @Override
+    public void getArticleDataFailure() {
+        ptrRecyclerViewUIComponent.refreshComplete();
+        ToastUtil.showToast(this,"MainActivity中请求失败!!!");
+    }
+
+    @Override
+    public void onPullToRefresh() {
+        presenter.getArticleData(MainActivity.this);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 
     /**
@@ -118,4 +171,11 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
             return "我是java里的方法返回值";
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        moveTaskToBack(true);
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
